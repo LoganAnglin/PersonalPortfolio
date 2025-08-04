@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: lightgray;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+}
+
+.brand-title {
+    font-size: 1.5em;
+}
+
+.navbar-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-links li {
+    margin: 0 10px;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    padding: 4px 8px;
+    border: 2px solid white;
+    border-radius: 50px; /* makes the border oval-shaped */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-links a:hover {
+    background-color: white;
+    color: #333;
+}
+
+.toggle-button {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.toggle-button span {
+    background: white;
+    height: 3px;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.toggle-button.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.toggle-button.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.toggle-button.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.home-image {
+    float: left;
+    margin: 10px;
+    background-color: lightgray;
+}
+
+.home-page-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    border: 3px solid white;
+    margin: 5px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.home-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    border: 3px solid white;
+    margin: 5px;
+    padding: 5px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .toggle-button {
+        display: flex; /* show only on small screens */
+    }
+
+    .navbar-links {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease-in-out;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .navbar-links.show {
+        max-height: 500px; /* adjust depending on number of links */
+        opacity: 1;
+    }
+
+    .navbar-links ul {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;s
+    width: 100%;
+    flex-wrap: wrap; /* optional: wrap to next line on small screens */
+    }
+
+    .navbar-links li {
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
