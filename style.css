@@ -126,7 +126,7 @@ body {
     .navbar-links ul {
     flex-direction: row;
     justify-content: center;
-    gap: 10px;s
+    gap: 10px;
     width: 100%;
     flex-wrap: wrap; /* optional: wrap to next line on small screens */
     }
