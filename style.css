@@ -136,5 +136,13 @@ body {
         text-align: center;
         margin: 10px 0;
     }
+
+    .home-image {
+    float: none;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    background-color: lightgray;
+    }
 }
 
