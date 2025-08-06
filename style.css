@@ -101,6 +101,18 @@ body {
     padding: 5px;
 }
 
+.home-page-left {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    border: 3px solid white;
+    margin: 5px;
+    padding: 5px;
+}
+
 @media (max-width: 768px) {
     .navbar {
         flex-wrap: wrap;
