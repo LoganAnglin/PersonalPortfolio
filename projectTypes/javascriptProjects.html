@@ -10,11 +10,23 @@
 
 <body>
 
-    <!-- Navbar start -->
-    <div id="navbar"></div>
+    <nav class="navbar">
+        <div class="brand-title">Personal-Portfolio-Javascript</div>
+        <div class="toggle-button" onclick="toggleMenu(this)">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-    <script src="../load-navbar.js"></script>
-    <!-- Navbar end -->
+        <div class="navbar-links" id="nav-links">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="#">Hobbies</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <script src="../script.js"></script>
 </body>
