@@ -1,27 +1,18 @@
-// js/navbar.js
-document.addEventListener("DOMContentLoaded", () => {
-  const navbarContainer = document.getElementById("navbar-container");
+function toggleMenu(button) {
+    button.classList.toggle("active");
+    document.getElementById("nav-links").classList.toggle("active");
+}
 
-  // Load the navbar HTML
-  fetch("/components/navbar.html")
-    .then(res => res.text())
-    .then(html => {
-      navbarContainer.innerHTML = html;
+// Automatically adjust links based on folder depth
+(function adjustNavLinks() {
+    const depth = window.location.pathname.split("/").length - 2; 
+    // e.g., /folder/page.html → depth=1, / → depth=0
+    const prefix = "../".repeat(depth);
 
-      // Fix links to work from any folder depth
-      const baseUrl = window.location.origin + window.location.pathname.split('/')[1] + '/';
-      document.querySelectorAll("#navbar-container a[data-page]").forEach(link => {
-        const page = link.getAttribute("data-page");
-        link.href = baseUrl + page;
-      });
-
-      // Toggle menu on small screens
-      const menuIcon = document.getElementById("menu-icon");
-      const navLinks = document.getElementById("nav-links");
-
-      menuIcon.addEventListener("click", () => {
-        navLinks.classList.toggle("show");
-      });
-    })
-    .catch(err => console.error("Error loading navbar:", err));
-});
+    document.querySelectorAll(".navbar a").forEach(link => {
+        let href = link.getAttribute("href");
+        if (!href.startsWith("http") && !href.startsWith(prefix)) {
+            link.setAttribute("href", prefix + href);
+        }
+    });
+})();
