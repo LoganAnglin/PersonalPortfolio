@@ -1,18 +1,27 @@
-(function() {
-    // Detect if we are inside a subfolder
-    const pathToNavbar = window.location.pathname.includes('/')
-        ? (window.location.pathname.split('/').length > 3 ? '../navbar.html' : 'navbar.html')
-        : 'navbar.html';
+// js/navbar.js
+document.addEventListener("DOMContentLoaded", () => {
+  const navbarContainer = document.getElementById("navbar-container");
 
-    fetch(pathToNavbar)
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('navbar').innerHTML = data;
+  // Load the navbar HTML
+  fetch("/components/navbar.html")
+    .then(res => res.text())
+    .then(html => {
+      navbarContainer.innerHTML = html;
 
-            // Load main script.js after navbar is injected
-            const script = document.createElement('script');
-            script.src = pathToNavbar.startsWith('../') ? '../script.js' : 'script.js';
-            document.body.appendChild(script);
-        })
-        .catch(err => console.error('Error loading navbar:', err));
-})();
+      // Fix links to work from any folder depth
+      const baseUrl = window.location.origin + window.location.pathname.split('/')[1] + '/';
+      document.querySelectorAll("#navbar-container a[data-page]").forEach(link => {
+        const page = link.getAttribute("data-page");
+        link.href = baseUrl + page;
+      });
+
+      // Toggle menu on small screens
+      const menuIcon = document.getElementById("menu-icon");
+      const navLinks = document.getElementById("nav-links");
+
+      menuIcon.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+    })
+    .catch(err => console.error("Error loading navbar:", err));
+});
