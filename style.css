@@ -126,6 +126,49 @@ body {
   top: 22px; transform: rotate(-45deg);
 }
 
+/* Text CSS */
+.home-image {
+    float: left;
+    margin: 10px;
+    background-color: lightgray;
+}
+
+.header-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 40px;
+    border: 3px solid white;
+    margin: 5px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.main-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    border: 3px solid white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.page-left {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    border: 3px solid white;
+    margin: 5px;
+    padding: 5px;
+}
+
 /* Mobile */
 @media (max-width: 820px) {
   .nav-toggle { display: inline-block; }
