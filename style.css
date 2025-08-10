@@ -235,5 +235,20 @@ body {
     margin-left: 0;
     width: 100%;
   }
+
+  /* Home Image */
+    .home-image {
+    max-width: 90%;         /* keep some padding on sides */
+    height: auto;
+    margin: 0 auto;         /* center horizontally */
+    display: block;
+  }
 }
 
+/* Home Image for small screens */
+@media (max-width: 480px) {
+  .home-image {
+    max-width: 80%;         /* scale down a bit more */
+    margin: 0 auto;         /* keep centered */
+  }
+}
