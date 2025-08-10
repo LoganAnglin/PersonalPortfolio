@@ -239,7 +239,7 @@ body {
   /* Home Image */
   .home-image {
     order: -1;        /* moves image to top in mobile */
-    width: 80%;      /* full screen width */
+    width: 90%;      /* full screen width */
     height: auto;     /* keep proportions */
     margin-bottom: 16px; /* space below image */
   }
