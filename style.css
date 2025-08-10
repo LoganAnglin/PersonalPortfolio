@@ -9,7 +9,7 @@
 
 body {
   padding-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
-  background-color: #e2e8f0;
+  background-color: #f0f9ff;
 }
 
 .navbar {
