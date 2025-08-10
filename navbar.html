@@ -1,16 +1,23 @@
-<nav class="navbar">
-  <div class="brand-title">Personal-Portfolio</div>
-  <div class="toggle-button" onclick="toggleMenu(this)">
-    <span></span><span></span><span></span>
-  </div>
+<nav class="navbar" role="navigation" aria-label="Main">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">∞</span>
+      <span class="brand-text">Personal Portfolio</span>
+    </a>
 
-  <div class="navbar-links" id="nav-links">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="certification.html">Certifications</a></li>
-    </ul>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span class="sr-only">Menu</span>
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <div class="nav-links" id="nav-links">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="certification.html">Certifications</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
