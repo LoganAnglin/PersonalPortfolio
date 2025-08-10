@@ -1,18 +1,40 @@
 (function() {
-    // Detect if we are inside a subfolder
-    const pathToNavbar = window.location.pathname.includes('/')
-        ? (window.location.pathname.split('/').length > 3 ? '../navbar.html' : 'navbar.html')
-        : 'navbar.html';
+  // Are we inside /projectTypes/ ?
+  var inSubdir = /\/projectTypes\//.test(window.location.pathname);
+  var navbarPath = inSubdir ? '../navbar.html' : 'navbar.html';
+  var basePrefix = inSubdir ? '../' : '';
 
-    fetch(pathToNavbar)
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('navbar').innerHTML = data;
+  fetch(navbarPath)
+    .then(function(res){ return res.text(); })
+    .then(function(html){
+      var container = document.getElementById('navbar');
+      if(!container){ 
+        console.error('No #navbar element found');
+        return;
+      }
+      container.innerHTML = html;
 
-            // Load main script.js after navbar is injected
-            const script = document.createElement('script');
-            script.src = pathToNavbar.startsWith('../') ? '../script.js' : 'script.js';
-            document.body.appendChild(script);
-        })
-        .catch(err => console.error('Error loading navbar:', err));
+      // Normalize relative links in the injected navbar
+      var anchors = container.querySelectorAll('a[href]');
+      anchors.forEach(function(a){
+        var href = a.getAttribute('href');
+        if (!href) return;
+        // Skip absolute/anchors/mailto and root-absolute paths
+        if (/^(?:[a-z]+:)?\/\//i.test(href) || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('/')) return;
+        if (basePrefix && !href.startsWith(basePrefix)) {
+          a.setAttribute('href', basePrefix + href);
+        }
+      });
+
+      // Load main script.js once
+      if (!document.querySelector('script[data-main="script.js"]')) {
+        var s = document.createElement('script');
+        s.src = basePrefix + 'script.js';
+        s.dataset.main = 'script.js';
+        document.body.appendChild(s);
+      }
+    })
+    .catch(function(err){
+      console.error('Error loading navbar:', err);
+    });
 })();
