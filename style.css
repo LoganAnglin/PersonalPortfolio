@@ -238,9 +238,11 @@ body {
 
   /* Home Image */
   .home-image {
-    width: 100%;      /* full screen width */
-    height: auto;     /* keep proportions */
-    margin-bottom: 16px; /* space below image */
+    float: none;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    background-color: lightgray;
   }
 }
 
