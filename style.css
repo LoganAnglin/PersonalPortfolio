@@ -301,6 +301,7 @@ body {
     border-radius: 8px;
     text-decoration: none;
     transition: transform .15s ease, background-color .15s ease;
+    text-align: center;
   }
 }
 
@@ -327,6 +328,7 @@ body {
     border-radius: 8px;
     text-decoration: none;
     transition: transform .15s ease, background-color .15s ease;
+    text-align: center;
   }
 }
 
