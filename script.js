@@ -62,7 +62,7 @@
 
 (function () {
   function forceDownload(pdfPath, fileName) {
-    return fetch(pdfPath, { mode: 'same-origin' })  // keep the PDF in your site/repo
+    fetch(pdfPath, { mode: 'same-origin' })
       .then(function (res) {
         if (!res.ok) throw new Error('Network error ' + res.status);
         return res.blob();
@@ -81,13 +81,12 @@
         }, 0);
       })
       .catch(function (err) {
-        // Fallback: open in a new tab if something goes wrong
+        // Fallback: open in new tab if download fails
         window.open(pdfPath, '_blank');
         console.error('Download failed:', err);
       });
   }
 
-  // Attach to any button with .js-download
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.js-download');
     if (!btn) return;
