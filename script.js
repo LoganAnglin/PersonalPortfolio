@@ -61,40 +61,59 @@
 })();
 
 (function () {
-  function forceDownload(pdfPath, fileName) {
-    fetch(pdfPath, { mode: 'same-origin' })
-      .then(function (res) {
-        if (!res.ok) throw new Error('Network error ' + res.status);
-        return res.blob();
-      })
-      .then(function (blob) {
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = fileName || 'download.pdf';
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function () {
-          window.URL.revokeObjectURL(url);
-          a.remove();
-        }, 0);
-      })
-      .catch(function (err) {
-        // Fallback: open in new tab if download fails
-        window.open(pdfPath, '_blank');
-        console.error('Download failed:', err);
-      });
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
   }
 
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('.js-download');
+  async function forceDownload(pdfPath, fileName) {
+    const res = await fetch(pdfPath, { mode: 'same-origin' });
+    if (!res.ok) throw new Error('Network error ' + res.status);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+
+    // Standard download path (works on most browsers)
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = fileName || 'download.pdf';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 0);
+  }
+
+  document.addEventListener('click', async function (e) {
+    const btn = e.target.closest('.js-download');
     if (!btn) return;
 
     e.preventDefault();
-    var pdfPath = btn.getAttribute('data-pdf') || btn.getAttribute('href');
-    var fileName = btn.getAttribute('data-filename') || '';
-    forceDownload(pdfPath, fileName);
+
+    const pdfPath  = btn.getAttribute('data-pdf') || btn.getAttribute('href');
+    const fileName = btn.getAttribute('data-filename') || 'download.pdf';
+    const zipPath  = btn.getAttribute('data-zip'); // optional iOS fallback
+
+    try {
+      if (isIOS()) {
+        // iOS reliably downloads ZIPs; PDFs open in viewer.
+        if (zipPath) {
+          window.location.href = zipPath; // triggers download
+          return;
+        }
+        // No ZIP provided — open PDF (user can Share -> Save to Files)
+        window.open(pdfPath, '_blank');
+        return;
+      }
+      // Non-iOS: do a blob download
+      await forceDownload(pdfPath, fileName);
+    } catch (err) {
+      console.error('Download failed:', err);
+      // Final fallback: open PDF in a new tab
+      window.open(pdfPath, '_blank');
+    }
   }, false);
 })();
+
 
