@@ -59,3 +59,43 @@
     document.addEventListener('DOMContentLoaded', initNav);
   }
 })();
+
+(function () {
+  function forceDownload(pdfPath, fileName) {
+    return fetch(pdfPath, { mode: 'same-origin' })  // keep the PDF in your site/repo
+      .then(function (res) {
+        if (!res.ok) throw new Error('Network error ' + res.status);
+        return res.blob();
+      })
+      .then(function (blob) {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = fileName || 'download.pdf';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          window.URL.revokeObjectURL(url);
+          a.remove();
+        }, 0);
+      })
+      .catch(function (err) {
+        // Fallback: open in a new tab if something goes wrong
+        window.open(pdfPath, '_blank');
+        console.error('Download failed:', err);
+      });
+  }
+
+  // Attach to any button with .js-download
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.js-download');
+    if (!btn) return;
+
+    e.preventDefault();
+    var pdfPath = btn.getAttribute('data-pdf') || btn.getAttribute('href');
+    var fileName = btn.getAttribute('data-filename') || '';
+    forceDownload(pdfPath, fileName);
+  }, false);
+})();
+
