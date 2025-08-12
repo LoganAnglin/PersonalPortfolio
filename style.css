@@ -127,6 +127,29 @@ body {
   top: 22px; transform: rotate(-45deg);
 }
 
+/* Button CSS */
+.custom-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #60a5fa; /* blue accent */
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.custom-btn:hover {
+  background-color: #3b82f6; /* slightly darker blue */
+  transform: translateY(-2px); /* subtle lift on hover */
+}
+
+.custom-btn:active {
+  background-color: #2563eb; /* even darker on click */
+  transform: translateY(0);
+}
+
 /* Text CSS */
 .home-image {
     float: left;
