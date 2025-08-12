@@ -247,76 +247,77 @@ body {
 }
 
 /* Resume's layout */
-/* Image scales with screen; centered on mobile */
-.resume-img{
+/* Base container */
+.resume-hero {
+  display: grid;
+  gap: clamp(16px, 3vw, 32px);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(12px, 3vw, 24px);
+  align-items: center;
+}
+
+/* Image styles (responsive) */
+.resume-img {
   width: 100%;
-  max-width: 520px;
+  max-width: 520px;     /* keeps desktop image reasonable */
   height: auto;
   display: block;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
 }
 
-/* Title matches site styling */
-.resume-title{
-  font-size: clamp(28px,4vw,44px);
+/* Text block */
+.resume-copy {
+  text-align: center;   /* centered text as requested */
+}
+
+/* Title */
+.resume-title {
+  font-size: clamp(28px, 4vw, 44px);
   line-height: 1.15;
   margin: 0;
-  color: var(--text-dark);
-  letter-spacing: .2px;
-  font-weight: 800;
-  text-align: center; /* centered on both; looks good with the card */
+  color: #0f172a;
 }
 
-/* White text box (card) */
-.resume-card{
-  background: var(--card-bg);
-  color: var(--text-body);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  padding: clamp(16px,3vw,24px);
-  text-align: center;               /* you asked to keep text centered */
-}
-
-/* Button matches your site */
-.btn-primary{
-  display: inline-block;
-  margin-top: 12px;
-  padding: 12px 20px;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: transform .15s ease, background-color .15s ease;
-}
-.btn-primary:hover{ background:#3b82f6; transform: translateY(-2px); }
-.btn-primary:active{ background:#2563eb; transform:none; }
-
-/* ===== Desktop / large screens ===== */
-@media (min-width: 821px){
-  .resume-hero{
-    grid-template-columns: minmax(280px,36%) 1fr;
+@media (min-width: 821px) {
+  .resume-hero {
+    grid-template-columns: minmax(280px, 36%) 1fr;
     grid-template-areas:
       "img title"
-      "img card";
+      "img copy";
   }
+
   .resume-img   { grid-area: img; }
-  .resume-title { grid-area: title; margin-bottom: 6px; }
-  .resume-card  { grid-area: card; }
+  .resume-title { grid-area: title; text-align: center; margin-bottom: 12px; border: 3px solid white;}
+  .resume-copy  { grid-area: copy; border: 3px solid white;}
 }
 
-/* ===== Mobile / tablets ===== */
-@media (max-width: 820px){
-  .resume-hero{
+/* Mobile: title on top, image centered, text below */
+@media (max-width: 820px) {
+  .resume-hero {
     grid-template-columns: 1fr;
     grid-template-areas:
       "title"
       "img"
-      "card";
+      "copy";
   }
-  .resume-title{ grid-area: title; }
-  .resume-img  { grid-area: img; margin: 0 auto; max-width: 92%; }
-  .resume-card { grid-area: card; }
+
+  .resume-title { grid-area: title; text-align: center; border: 3px solid white;}
+  .resume-img   { grid-area: img; margin: 0 auto; max-width: 90%;}
+  .resume-copy  { grid-area: copy; text-align: center; border: 3px solid white;}
 }
+
+/* Optional matching button style (uses your blue accent) */
+.custom-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #60a5fa;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform .15s ease, background-color .15s ease;
+}
+.custom-btn:hover  { background: #3b82f6; transform: translateY(-2px); }
+.custom-btn:active { background: #2563eb; transform: translateY(0); }
